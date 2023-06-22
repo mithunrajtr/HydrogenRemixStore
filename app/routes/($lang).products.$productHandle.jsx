@@ -554,7 +554,45 @@ const PRODUCT_QUERY = `#graphql
     }
   }
 `;
-
+// related products
+const RELATED_PRODUCTS_QUERY =  `#graphql
+query getRecommendedProducts{
+  products(first:12,query:"tag:Gold"){
+    edges{
+      node{
+         id
+        title
+        tags
+        publishedAt
+        handle
+    variants(first: 1) {
+      nodes {
+        id
+        image {
+          url
+          altText
+          width
+          height
+        }
+        price {
+          amount
+          currencyCode
+        }
+        
+        selectedOptions {
+          name
+          value
+        }
+        product {
+          handle
+          title
+        }
+      }
+    }
+      }
+    }
+  }
+}`
 const RECOMMENDED_PRODUCTS_QUERY = `#graphql
   ${PRODUCT_CARD_FRAGMENT}
   query productRecommendations(
